@@ -1,0 +1,12 @@
+[alias]
+    lg = log -20 --graph --oneline --decorate
+    st = status
+    co = checkout
+    ca = commit -a
+    re = remote -v
+    br = branch -vv
+    bra = branch -avv
+    ms = merge --squash
+    up = pull --all
+    cl = gc --prune=now
+    alias = "!git config -l | grep alias"
