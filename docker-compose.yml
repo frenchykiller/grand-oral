@@ -2,7 +2,7 @@ version: '3'
 
 services:
     web:
-        restart: always
+        #restart: always
         environment:
             VIRTUAL_HOST: "${VIRTUAL_HOST:?err}"
             SELF_SIGNED_HOST: "${VIRTUAL_HOST:?err}"
@@ -50,7 +50,7 @@ services:
             - proxy
 
     cron:
-        restart: always
+        #restart: always
         build: ./build/cron
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
