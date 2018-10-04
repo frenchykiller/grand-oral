@@ -137,6 +137,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN echo 'LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined' >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite headers expires
 RUN a2disconf other-vhosts-access-log
+ADD vhost.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Alias & git
 ADD bash_aliases /root/.bash_aliases

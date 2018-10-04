@@ -5,6 +5,7 @@ services:
         restart: always
         environment:
             VIRTUAL_HOST: "${VIRTUAL_HOST:?err}"
+            SELF_SIGNED_HOST: "${VIRTUAL_HOST:?err}"
         build:
             context: ./build/apache
             args:
@@ -40,7 +41,6 @@ services:
                 - PHP_ZIP=${PHP_ZIP:-false}
         volumes:
             - ./www:/var/www/html
-            - ./data/log/apache2:/var/log/apache2
             - ./data/composer:/var/www/.composer
             - ./data/npm:/var/www/.npm
         expose:
