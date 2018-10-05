@@ -38,6 +38,7 @@ services:
                 - PHP_SOAP=${PHP_SOAP:-false}
                 - PHP_SQLITE3=${PHP_SQLITE3:-false}
                 - PHP_XDEBUG=${PHP_XDEBUG:-false}
+                - PHP_XML=${PHP_XML:-false}
                 - PHP_ZIP=${PHP_ZIP:-false}
         volumes:
             - ./www:/var/www/html

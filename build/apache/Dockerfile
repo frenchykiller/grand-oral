@@ -13,7 +13,8 @@ RUN apt-get update && install_packages \
     zip \
     unzip \
     apache2 \
-    ssmtp
+    ssmtp \
+    vim
 
 # Timezone & Locales
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
@@ -108,6 +109,9 @@ RUN if [ ${PHP_SQLITE3} = true ]; then install_packages php${PHP_VERSION}-sqlite
 ARG PHP_XDEBUG=false
 RUN if [ ${PHP_XDEBUG} = true ]; then install_packages php${PHP_VERSION}-xdebug ;fi
 
+ARG PHP_XML=false
+RUN if [ ${PHP_XML} = true ]; then install_packages php${PHP_VERSION}-xml ;fi
+
 ARG PHP_ZIP=false
 RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 
@@ -139,15 +143,16 @@ RUN a2enmod rewrite headers expires
 RUN a2disconf other-vhosts-access-log
 ADD vhost.conf /etc/apache2/sites-enabled/000-default.conf
 
-# Alias & git
-ADD bash_aliases /root/.bash_aliases
-ADD bash_aliases /var/www/.bash_aliases
-ADD git_config /root/.git_config
-ADD git_config /var/www/.git_config
-
 # User & Group
 RUN usermod -u ${UID} www-data
 RUN groupmod -g ${UID} www-data
+
+# Alias & git
+ADD bashrc /root/.bashrc
+ADD git_config /root/.git_config
+ADD bashrc /var/www/.bashrc
+ADD git_config /var/www/.git_config
+RUN chown www-data:www-data /var/www/.*
 
 # Healthcheck
 HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
