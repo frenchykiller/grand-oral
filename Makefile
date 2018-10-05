@@ -13,16 +13,16 @@ network:
 	@docker network inspect proxy > /dev/null || docker network create proxy
 
 start: network ## Démarrage des conteneurs
-	@docker-compose -f docker-compose.$(ENV).yml up -d --remove-orphans
+	@docker-compose up -d --remove-orphans
 
 up: start
 
 stop: ## Arrêt des conteneurs
-	@docker-compose -f docker-compose.$(ENV).yml down
+	@docker-compose down
 
 down: stop
 
 restart: stop start ## Redémarrage des conteneurs
 
 rebuild: network stop ## Reconstruction et démarrage des conteneurs
-	@docker-compose -f docker-compose.$(ENV).yml up -d --build --force-recreate --remove-orphans
+	@docker-compose up -d --build --force-recreate --remove-orphans
