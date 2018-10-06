@@ -41,13 +41,12 @@ services:
                 - PHP_XML=${PHP_XML:-false}
                 - PHP_ZIP=${PHP_ZIP:-false}
         volumes:
-            - ./www:/var/www/html
+            - ./www:/var/www/app/public
             - ./data/composer:/var/www/.composer
             - ./data/npm:/var/www/.npm
         expose:
             - "80"
         networks:
-            - default
             - proxy
 
     cron:
@@ -55,8 +54,6 @@ services:
         build: ./build/cron
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
-        networks:
-            - default
 
 networks:
     proxy:

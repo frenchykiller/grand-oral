@@ -12,17 +12,32 @@ help:
 network:
 	@docker network inspect proxy > /dev/null || docker network create proxy
 
+bash:
+	@docker-compose exec -u www-data web bash
+
+bashroot:
+	@docker-compose exec web bash
+
 start: network ## Démarrage des conteneurs
 	@docker-compose up -d --remove-orphans
 
 up: start
 
 stop: ## Arrêt des conteneurs
-	@docker-compose down
+	@docker-compose down --remove-orphans
 
 down: stop
 
 restart: stop start ## Redémarrage des conteneurs
 
+status: ## Status des conteneurs
+	@docker-compose ps
+
+logs: ## Affichage des logs des conteneurs
+	@docker-compose logs
+
 rebuild: network stop ## Reconstruction et démarrage des conteneurs
 	@docker-compose up -d --build --force-recreate --remove-orphans
+
+remove: ## Suppression des conteneurs
+	@docker-compose down --rmi all -v --remove-orphans

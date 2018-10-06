@@ -1,4 +1,4 @@
-FROM bitnami/minideb:jessie
+FROM bitnami/minideb:stretch
 ARG DEBIAN_FRONTEND=noninteractive
 ARG UID=1000
 
@@ -13,16 +13,13 @@ RUN apt-get update && install_packages \
     zip \
     unzip \
     apache2 \
-    ssmtp \
-    vim
+    ssmtp
 
 # Timezone & Locales
-RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
-RUN echo "fr_FR.UTF-8 UTF-8" > /etc/locale.gen
-RUN locale-gen fr_FR.UTF-8
+RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
+RUN echo "fr_FR.UTF-8 UTF-8" > /etc/locale.gen && locale-gen fr_FR.UTF-8
 RUN dpkg-reconfigure locales
 RUN /usr/sbin/update-locale LANG=fr_FR.UTF-8
-ENV LC_ALL fr_FR.UTF-8
 
 # Image optimizers
 ARG INSTALL_IMAGE_OPTIMIZERS=false
@@ -116,8 +113,8 @@ ARG PHP_ZIP=false
 RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 
 # PHP configuration
-ADD php.ini /etc/php/${BUILD}/apache2/conf.d
-ADD php.ini /etc/php/${BUILD}/cli/conf.d
+ADD php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
+ADD php.ini /etc/php/${PHP_VERSION}/cli/conf.d
 
 # Composer
 ARG INSTALL_COMPOSER=false
@@ -152,13 +149,16 @@ ADD bashrc /root/.bashrc
 ADD git_config /root/.git_config
 ADD bashrc /var/www/.bashrc
 ADD git_config /var/www/.git_config
-RUN chown www-data:www-data /var/www/.*
+
+# Workdir
+RUN mkdir -p /var/www/app/public
+RUN chown -R www-data:www-data /var/www
 
 # Healthcheck
 HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 
 # Default workdir
-WORKDIR /var/www/html
+WORKDIR /var/www/app/public
 
 # Init script
 COPY init.sh /usr/bin/init
