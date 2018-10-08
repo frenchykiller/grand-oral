@@ -1,4 +1,4 @@
-FROM bitnami/minideb:jessie
+FROM bitnami/minideb:stretch
 ARG DEBIAN_FRONTEND=noninteractive
 ARG UID=1000
 
@@ -30,7 +30,7 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 # PHP
 ARG PHP_VERSION=7.2
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-RUN echo "deb https://packages.sury.org/php/ jessie main" > /etc/apt/sources.list.d/php.list
+RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list
 RUN install_packages \
     libapache2-mod-php${PHP_VERSION} \
     php${PHP_VERSION} \
