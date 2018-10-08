@@ -23,6 +23,7 @@ services:
                 - PHP_EXIF=${PHP_EXIF:-false}
                 - PHP_FILEINFO=${PHP_FILEINFO:-false}
                 - PHP_GD=${PHP_GD:-false}
+                - PHP_GMP=${PHP_GMP:-false}
                 - PHP_IMAGICK=${PHP_IMAGICK:-false}
                 - PHP_IMAP=${PHP_IMAP:-false}
                 - PHP_INTL=${PHP_INTL:-false}

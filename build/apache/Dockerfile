@@ -61,6 +61,9 @@ RUN if [ ${PHP_FILEINFO} = true ]; then install_packages php${PHP_VERSION}-filei
 ARG PHP_GD=false
 RUN if [ ${PHP_GD} = true ]; then install_packages php${PHP_VERSION}-gd ;fi
 
+ARG PHP_GMP=false
+RUN if [ ${PHP_GMP} = true ]; then install_packages php${PHP_VERSION}-gmp ;fi
+
 ARG PHP_IMAGICK=false
 RUN if [ ${PHP_IMAGICK} = true ]; then install_packages php${PHP_VERSION}-imagick ;fi
 
