@@ -1,4 +1,4 @@
-FROM bitnami/minideb:stretch
+FROM bitnami/minideb:jessie
 ARG DEBIAN_FRONTEND=noninteractive
 ARG UID=1000
 
