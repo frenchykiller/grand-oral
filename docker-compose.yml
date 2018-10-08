@@ -13,7 +13,7 @@ services:
                 - PHP_VERSION=${PHP_VERSION:-7.2}
                 - INSTALL_COMPOSER=${INSTALL_COMPOSER:-false}
                 - INSTALL_NODE=${INSTALL_NODE:-false}
-                - NODE_VER=${NODE_VERSION:-8}
+                - NODE_VERSION=${NODE_VERSION:-8}
                 - INSTALL_IMAGE_OPTIMIZERS=${INSTALL_IMAGE_OPTIMIZERS:-false}
                 - PHP_APC=${PHP_APC:-false}
                 - PHP_BCMATH=${PHP_BCMATH:-false}

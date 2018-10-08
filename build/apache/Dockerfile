@@ -117,7 +117,7 @@ RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 
 # PHP configuration
 ADD php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
-ADD php.ini /etc/php/${PHP_VERSION}/cli/conf.d
+COPY php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
 
 # Composer
 ARG INSTALL_COMPOSER=false
@@ -126,11 +126,12 @@ RUN if [ ${INSTALL_COMPOSER} = true ]; then \
 ;fi
 
 # NodeJs
-ARG NODE_VER=8
+ARG NODE_VERSION=8
 ARG INSTALL_NODE=false
 RUN if [ ${INSTALL_NODE} = true ]; then \
-    curl -sL https://deb.nodesource.com/setup_${NODE_VER}.x | bash - \
-    install_packages nodejs \
+    install_packages gnupg lsb-release \
+    && curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
+    && install_packages nodejs \
 ;fi
 
 # SSMTP
