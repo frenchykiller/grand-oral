@@ -9,6 +9,7 @@ services:
         build:
             context: ./build/apache
             args:
+                - ENV=${ENV:-dev}
                 - UID=${UID:-1000}
                 - PHP_VERSION=${PHP_VERSION:-7.2}
                 - INSTALL_COMPOSER=${INSTALL_COMPOSER:-false}

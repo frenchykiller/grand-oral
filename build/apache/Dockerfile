@@ -1,11 +1,13 @@
 FROM bitnami/minideb:stretch
 ARG DEBIAN_FRONTEND=noninteractive
 ARG UID=1000
+ARG ENV=dev
 
 RUN apt-get update && install_packages \
     apt-transport-https \
     apt-utils \
     ca-certificates \
+    make \
     wget \
     curl \
     locales \
@@ -116,8 +118,8 @@ ARG PHP_ZIP=false
 RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 
 # PHP configuration
-ADD php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
-COPY php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
+ADD ${ENV}/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
+COPY ${ENV}/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
 
 # Composer
 ARG INSTALL_COMPOSER=false
@@ -129,7 +131,7 @@ RUN if [ ${INSTALL_COMPOSER} = true ]; then \
 ARG NODE_VERSION=8
 ARG INSTALL_NODE=false
 RUN if [ ${INSTALL_NODE} = true ]; then \
-    install_packages gnupg lsb-release \
+    install_packages gnupg lsb-release libpng-dev gcc g++ libc-dev \
     && curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
     && install_packages nodejs \
 ;fi
