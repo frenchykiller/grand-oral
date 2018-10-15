@@ -118,8 +118,8 @@ ARG PHP_ZIP=false
 RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 
 # PHP configuration
-ADD ${ENV}/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
-COPY ${ENV}/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
+ADD conf/${ENV}/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
+COPY conf/${ENV}/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
 
 # Composer
 ARG INSTALL_COMPOSER=false
@@ -137,24 +137,24 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
 ;fi
 
 # SSMTP
-ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
+ADD conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Apache configuration
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-RUN echo 'LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined' >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite headers expires
 RUN a2disconf other-vhosts-access-log
-ADD vhost.conf /etc/apache2/sites-enabled/000-default.conf
+ADD conf/apache2.conf /etc/apache2/conf-enabled/app.conf
+ADD conf/vhost.conf /etc/apache2/sites-enabled/000-default.conf
+ADD conf/prepend.php /var/www/prepend.php
 
 # User & Group
 RUN usermod -u ${UID} www-data
 RUN groupmod -g ${UID} www-data
 
 # Alias & git
-ADD bashrc /root/.bashrc
-ADD git_config /root/.git_config
-ADD bashrc /var/www/.bashrc
-ADD git_config /var/www/.git_config
+ADD conf/bashrc /root/.bashrc
+ADD conf/git_config /root/.git_config
+ADD conf/bashrc /var/www/.bashrc
+ADD conf/git_config /var/www/.git_config
 
 # Workdir
 RUN mkdir -p /var/www/app/public

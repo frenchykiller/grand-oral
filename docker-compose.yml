@@ -44,6 +44,7 @@ services:
                 - PHP_ZIP=${PHP_ZIP:-false}
         volumes:
             - ./www:/var/www/app/public
+            - ./data/log:/var/log/apache2
             - ./data/composer:/var/www/.composer
             - ./data/npm:/var/www/.npm
         expose:
