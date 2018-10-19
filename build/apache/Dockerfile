@@ -164,7 +164,7 @@ RUN chown -R www-data:www-data /var/www
 HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 
 # Default workdir
-WORKDIR /var/www/app/${PUBLIC_FOLDER}
+WORKDIR /var/www/app
 
 # Init script
 COPY init.sh /usr/bin/init
