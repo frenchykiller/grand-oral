@@ -157,14 +157,14 @@ ADD conf/bashrc /var/www/.bashrc
 ADD conf/git_config /var/www/.git_config
 
 # Workdir
-RUN mkdir -p /var/www/app/public
+RUN mkdir -p /var/www/app
 RUN chown -R www-data:www-data /var/www
 
 # Healthcheck
 HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 
 # Default workdir
-WORKDIR /var/www/app/public
+WORKDIR /var/www/app/${PUBLIC_FOLDER}
 
 # Init script
 COPY init.sh /usr/bin/init

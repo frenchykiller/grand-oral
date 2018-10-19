@@ -6,6 +6,7 @@ services:
         environment:
             VIRTUAL_HOST: "${VIRTUAL_HOST:?err}"
             SELF_SIGNED_HOST: "${VIRTUAL_HOST:?err}"
+            PUBLIC_FOLDER: "${PUBLIC_FOLDER}"
         build:
             context: ./build/apache
             args:
