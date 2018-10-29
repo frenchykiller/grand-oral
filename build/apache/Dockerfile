@@ -33,10 +33,7 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 ARG PHP_VERSION=7.2
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list
-RUN install_packages \
-    libapache2-mod-php${PHP_VERSION} \
-    php${PHP_VERSION} \
-    php${PHP_VERSION}-cli
+RUN install_packages libapache2-mod-php${PHP_VERSION} php${PHP_VERSION} php${PHP_VERSION}-cli
 
 # Packages PHP
 ARG PHP_APC=false

@@ -35,6 +35,7 @@ services:
                 - PHP_MEMCACHED=${PHP_MEMCACHED:-false}
                 - PHP_MONGO=${PHP_MONGO:-false}
                 - PHP_MYSQL=${PHP_MYSQL:-false}
+                - PHP_ODBC=${PHP_ODBC:-false}
                 - PHP_OPCACHE=${PHP_OPCACHE:-false}
                 - PHP_PGSQL=${PHP_PGSQL:-false}
                 - PHP_REDIS=${PHP_REDIS:-false}
