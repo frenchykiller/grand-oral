@@ -96,6 +96,9 @@ RUN if [ ${PHP_MONGO} = true ]; then install_packages php${PHP_VERSION}-mongo ;f
 ARG PHP_OPCACHE=false
 RUN if [ ${PHP_OPCACHE} = true ]; then install_packages php${PHP_VERSION}-opcache ;fi
 
+ARG PHP_ODBC=false
+RUN if [ ${PHP_ODBC} = true ]; then install_packages php${PHP_VERSION}-odbc ;fi
+
 ARG PHP_PGSQL=false
 RUN if [ ${PHP_PGSQL} = true ]; then install_packages php${PHP_VERSION}-pgsql ;fi
 
