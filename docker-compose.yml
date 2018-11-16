@@ -32,6 +32,7 @@ services:
                 - PHP_JSON=${PHP_JSON:-false}
                 - PHP_LDAP=${PHP_LDAP:-false}
                 - PHP_MBSTRING=${PHP_MBSTRING:-false}
+                - PHP_MCRYPT=${PHP_MCRYPT:-false}
                 - PHP_MEMCACHED=${PHP_MEMCACHED:-false}
                 - PHP_MONGO=${PHP_MONGO:-false}
                 - PHP_MYSQL=${PHP_MYSQL:-false}

@@ -15,13 +15,18 @@ RUN apt-get update && install_packages \
     zip \
     unzip \
     apache2 \
-    ssmtp
+    ssmtp \
+    gawk
 
 # Timezone & Locales
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 RUN echo "fr_FR.UTF-8 UTF-8" > /etc/locale.gen && locale-gen fr_FR.UTF-8
 RUN dpkg-reconfigure locales
 RUN /usr/sbin/update-locale LANG=fr_FR.UTF-8
+
+# Script for version control
+ADD conf/version /usr/bin/version
+RUN chmod +x /usr/bin/version
 
 # Image optimizers
 ARG INSTALL_IMAGE_OPTIMIZERS=false
@@ -80,6 +85,15 @@ RUN if [ ${PHP_LDAP} = true ]; then install_packages php${PHP_VERSION}-ldap ;fi
 
 ARG PHP_MBSTRING=false
 RUN if [ ${PHP_MBSTRING} = true ]; then install_packages php${PHP_VERSION}-mbstring ;fi
+
+ARG PHP_MCRYPT=false
+RUN if [ ${PHP_MCRYPT} = true ]; then \
+        if [ $(version ${PHP_VERSION}) -lt $(version 7.2) ]; then \
+            install_packages php${PHP_VERSION}-mcrypt ; \
+        else \
+            echo "No mcrypt package for PHP >= 7.2" \
+        ; fi \
+    ;fi
 
 ARG PHP_MEMCACHED=false
 RUN if [ ${PHP_MEMCACHED} = true ]; then install_packages php${PHP_VERSION}-memcached ;fi
