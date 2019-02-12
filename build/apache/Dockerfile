@@ -166,9 +166,9 @@ RUN groupmod -g ${UID} www-data
 
 # Alias & git
 ADD conf/bashrc /root/.bashrc
-ADD conf/git_config /root/.git_config
+ADD conf/git_config /root/.gitconfig
 ADD conf/bashrc /var/www/.bashrc
-ADD conf/git_config /var/www/.git_config
+ADD conf/git_config /var/www/.gitconfig
 
 # Workdir
 RUN mkdir -p /var/www/app
