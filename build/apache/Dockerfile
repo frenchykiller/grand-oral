@@ -16,7 +16,9 @@ RUN apt-get update && install_packages \
     unzip \
     apache2 \
     ssmtp \
-    gawk
+    gawk \
+    iputils-ping \
+    vim
 
 # Timezone & Locales
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
