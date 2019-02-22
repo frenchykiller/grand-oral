@@ -3,6 +3,7 @@ version: '3'
 services:
     web:
         #restart: always
+        container_name: ${CONTAINER_NAME:?err}
         environment:
             VIRTUAL_HOST: "${VIRTUAL_HOST:?err}"
             SELF_SIGNED_HOST: "${VIRTUAL_HOST:?err}"
@@ -58,6 +59,8 @@ services:
 #    cron:
 #        restart: always
 #        build: ./build/cron
+#        environment:
+#            CONTAINER_NAME: ${CONTAINER_NAME:?err}
 #        volumes:
 #            - /var/run/docker.sock:/var/run/docker.sock:ro
 

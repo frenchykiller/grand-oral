@@ -5,7 +5,11 @@
 # [nom_du_conteneur] : nom du conteneur dans lequel on exécute la commande
 # [commande] : commande à exécuter
 #
+# Après modification ne pas oublier de lancer "make rebuild"
+#
 #####################################
 
 #* * * * * docker exec -u [utilisateur] [nom_du_conteneur] [commande] > /proc/1/fd/1 2> /proc/1/fd/2
 
+# Laravel Schedule
+* * * * * docker exec -u www-data $CONTAINER_NAME bash -c ' cd /var/www/app/ && php artisan schedule:run' > /proc/1/fd/1 2> /proc/1/fd/2

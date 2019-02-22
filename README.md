@@ -14,7 +14,12 @@ Pour la configuration d'Apache, éditer le fichier [build/apache/vhost.conf](bui
 
 ## Tâches cron
 
-Les tâches cron sont appelées dans le conteneur `cron`. Pour ajouter une tâche, éditer le fichier [build/cron/crontab](build/cron/crontab)
+Pour activer les tâches cron, décommentez les lignes du conteneur dans le fichier `docker-compose.yml`.
+
+Pour ajouter une tâche, éditer le fichier [build/cron/crontab](build/cron/crontab). Par défaut, le conteneur appelle `php artisan schedule:run` dans le conteneur web.
+
+**NB** : à chaque changement du fichier `crontab`, il est nécessaire de rebuilder le conteneur. Pour cela utiliser `make rebuild` ou `make remove && make start`
+
 
 ## Makefile
 
