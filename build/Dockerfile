@@ -185,6 +185,10 @@ HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 # Default workdir
 WORKDIR /var/www/app
 
+# Init script
+COPY conf/init.sh /usr/bin/init
+RUN chmod 0755 /usr/bin/init
+
 # Crontab
 ADD conf/crontab /etc/cron.d/crontab
 
