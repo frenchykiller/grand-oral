@@ -3,16 +3,15 @@ version: '3'
 services:
     web:
         #restart: always
-        container_name: ${CONTAINER_NAME:?err}
         environment:
             VIRTUAL_HOST: "${VIRTUAL_HOST:?err}"
             SELF_SIGNED_HOST: "${VIRTUAL_HOST:?err}"
             PUBLIC_FOLDER: "${PUBLIC_FOLDER}"
         build:
-            context: ./build/apache
+            context: ./build
             args:
-                - ENV=${ENV:-dev}
                 - UID=${UID:-1000}
+                - PHP_CONFIG=${PHP_CONFIG:-dev}
                 - PHP_VERSION=${PHP_VERSION:-7.2}
                 - INSTALL_COMPOSER=${INSTALL_COMPOSER:-false}
                 - INSTALL_NODE=${INSTALL_NODE:-false}
@@ -55,14 +54,6 @@ services:
             - "80"
         networks:
             - proxy
-
-#    cron:
-#        restart: always
-#        build: ./build/cron
-#        environment:
-#            CONTAINER_NAME: ${CONTAINER_NAME:?err}
-#        volumes:
-#            - /var/run/docker.sock:/var/run/docker.sock:ro
 
 networks:
     proxy:

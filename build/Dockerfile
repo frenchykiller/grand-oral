@@ -1,7 +1,7 @@
 FROM bitnami/minideb:stretch
 ARG DEBIAN_FRONTEND=noninteractive
 ARG UID=1000
-ARG ENV=dev
+ARG PHP_CONFIG=dev
 
 RUN apt-get update && install_packages \
     apt-transport-https \
@@ -18,7 +18,9 @@ RUN apt-get update && install_packages \
     ssmtp \
     gawk \
     iputils-ping \
-    vim
+    vim \
+    cron \
+    supervisor
 
 # Timezone & Locales
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
@@ -134,8 +136,8 @@ ARG PHP_ZIP=false
 RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 
 # PHP configuration
-ADD conf/${ENV}/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
-COPY conf/${ENV}/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
+ADD conf/${PHP_CONFIG}/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
+COPY conf/${PHP_CONFIG}/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
 
 # Composer
 ARG INSTALL_COMPOSER=false
@@ -156,9 +158,10 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
 ADD conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Apache configuration
-RUN a2enmod rewrite headers expires
+RUN a2enmod rewrite headers expires remoteip
 RUN a2disconf other-vhosts-access-log
 ADD conf/apache2.conf /etc/apache2/conf-enabled/app.conf
+ADD conf/remoteip.conf /etc/apache2/conf-enabled/remoteip.conf
 ADD conf/vhost.conf /etc/apache2/sites-enabled/000-default.conf
 ADD conf/prepend.php /var/www/prepend.php
 
@@ -182,9 +185,11 @@ HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 # Default workdir
 WORKDIR /var/www/app
 
-# Init script
-COPY init.sh /usr/bin/init
-RUN chmod 0755 /usr/bin/init
-CMD ["bash", "init"]
+# Crontab
+ADD conf/crontab /etc/cron.d/crontab
 
 EXPOSE 80
+
+# Supervisor
+COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
