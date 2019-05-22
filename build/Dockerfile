@@ -135,6 +135,9 @@ RUN if [ ${PHP_XML} = true ]; then install_packages php${PHP_VERSION}-xml ;fi
 ARG PHP_ZIP=false
 RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 
+ARG PHP_ZMQ=false
+RUN if [ ${PHP_ZMQ} = true ]; then install_packages php${PHP_VERSION}-zmq ;fi
+
 # PHP configuration
 ADD conf/${PHP_CONFIG}/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
 COPY conf/${PHP_CONFIG}/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
