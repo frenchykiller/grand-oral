@@ -20,7 +20,8 @@ RUN apt-get update && install_packages \
     iputils-ping \
     vim \
     cron \
-    supervisor
+    supervisor \
+    iproute
 
 # Timezone & Locales
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
