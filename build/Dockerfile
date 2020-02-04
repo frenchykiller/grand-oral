@@ -150,7 +150,7 @@ RUN if [ ${INSTALL_COMPOSER} = true ]; then \
 ;fi
 
 # NodeJs
-ARG NODE_VERSION=8
+ARG NODE_VERSION=10
 ARG INSTALL_NODE=false
 RUN if [ ${INSTALL_NODE} = true ]; then \
     install_packages gnupg lsb-release libpng-dev gcc g++ libc-dev \
