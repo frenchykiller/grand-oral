@@ -182,7 +182,6 @@ ADD conf/git_config /var/www/.gitconfig
 # Workdir
 RUN mkdir -p /var/www/app
 RUN chown -R www-data:www-data /var/www
-VOLUME /var/www/app
 
 # Healthcheck
 HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
