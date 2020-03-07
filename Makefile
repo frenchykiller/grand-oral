@@ -11,7 +11,10 @@ help:
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 .env:
-	@[ -f .env ] || ln -s .env.$(ENV) .env && mkdir -p www/$(PUBLIC_FOLDER)
+	@[ -f .env ] || ln -s .env.$(ENV) .env
+
+www:
+	@[ -d www ] || mkdir www
 
 network:
 	@docker network inspect proxy > /dev/null || docker network create proxy
@@ -22,7 +25,7 @@ bash:
 bashroot:
 	@docker-compose exec web bash
 
-start: network .env pull ## Démarrage des conteneurs
+start: www network .env pull ## Démarrage des conteneurs
 	@docker-compose up -d --remove-orphans
 
 up: start
@@ -54,3 +57,6 @@ push: .env ## Push du conteneur vers le registre
 	
 remove: ## Suppression des conteneurs
 	@docker-compose down --rmi all -v --remove-orphans
+
+laravel: start ## Installation de Laravel
+	@docker-compose exec -u www-data web composer create-project --prefer-dist laravel/laravel . $(VERSION)

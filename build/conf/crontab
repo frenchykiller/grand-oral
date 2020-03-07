@@ -11,4 +11,4 @@
 #* * * * * [utilisateur] [commande] >> /dev/null 2>&1
 
 # Laravel Schedule
-#* * * * * www-data cd /var/www/app/ && php artisan schedule:run >> /dev/null 2>&1
+* * * * * www-data cd /var/www/app/ && php artisan schedule:run >> /dev/null 2>&1
