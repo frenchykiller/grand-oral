@@ -1,4 +1,4 @@
-.PHONY:help network start stop up down restart rebuild
+.PHONY:help network bash bashroot start up stop down restart status logs build rebuild pull push remove
 .DEFAULT_GOAL=help
 
 CYAN   = \033[0;36m
@@ -22,7 +22,7 @@ bash:
 bashroot:
 	@docker-compose exec web bash
 
-start: network .env ## Démarrage des conteneurs
+start: network .env pull ## Démarrage des conteneurs
 	@docker-compose up -d --remove-orphans
 
 up: start
@@ -40,8 +40,17 @@ status: ## Status des conteneurs
 logs: ## Affichage des logs des conteneurs
 	@docker-compose logs
 
+build: .env ## Build du conteneur
+	@docker-compose build --compress --force-rm --no-cache web
+	
 rebuild: network stop ## Reconstruction et démarrage des conteneurs
 	@docker-compose up -d --build --force-recreate --remove-orphans
 
+pull: .env ## Pull de la dernière version du conteneur
+	@docker-compose pull web
+
+push: .env ## Push du conteneur vers le registre
+	@docker-compose push web
+	
 remove: ## Suppression des conteneurs
 	@docker-compose down --rmi all -v --remove-orphans
