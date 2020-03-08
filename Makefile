@@ -4,6 +4,7 @@
 CYAN   = \033[0;36m
 NC     = \033[m
 ENV   ?= dev
+VERSION ?= 6
 
 -include .env
 
