@@ -133,6 +133,9 @@ RUN if [ ${PHP_XDEBUG} = true ]; then install_packages php${PHP_VERSION}-xdebug 
 ARG PHP_XML=false
 RUN if [ ${PHP_XML} = true ]; then install_packages php${PHP_VERSION}-xml ;fi
 
+ARG PHP_XMLRPC=false
+RUN if [ ${PHP_XMLRPC} = true ]; then install_packages php${PHP_VERSION}-xmlrpc ;fi
+
 ARG PHP_ZIP=false
 RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 

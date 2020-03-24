@@ -26,7 +26,7 @@ bash:
 bashroot:
 	@docker-compose exec web bash
 
-start: www network .env pull ## Démarrage des conteneurs
+start: www network .env ## Démarrage des conteneurs
 	@docker-compose up -d --remove-orphans
 
 up: start
@@ -47,8 +47,7 @@ logs: ## Affichage des logs des conteneurs
 build: .env ## Build du conteneur
 	@docker-compose build --compress --force-rm --no-cache web
 	
-rebuild: network stop ## Reconstruction et démarrage des conteneurs
-	@docker-compose up -d --build --force-recreate --remove-orphans
+rebuild: network stop remove build start ## Reconstruction et démarrage des conteneurs
 
 pull: .env ## Pull de la dernière version du conteneur
 	@docker-compose pull web

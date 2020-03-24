@@ -45,6 +45,7 @@ services:
                 - PHP_SQLITE3=${PHP_SQLITE3:-false}
                 - PHP_XDEBUG=${PHP_XDEBUG:-false}
                 - PHP_XML=${PHP_XML:-false}
+                - PHP_XMLRPC=${PHP_XMLRPC:-false}
                 - PHP_ZIP=${PHP_ZIP:-false}
                 - PHP_ZMQ=${PHP_ZMQ:-false}
         volumes:
