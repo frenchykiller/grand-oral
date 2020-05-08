@@ -2,10 +2,11 @@ version: '3'
 
 services:
     web:
-        #restart: always
+        restart: unless-stopped
         environment:
             VIRTUAL_HOST: "${VIRTUAL_HOST:?err}"
             SELF_SIGNED_HOST: "${VIRTUAL_HOST:?err}"
+            LETSENCRYPT_HOST: "${VIRTUAL_HOST:?err}"
             PUBLIC_FOLDER: "${PUBLIC_FOLDER}"
         image: ${REGISTRY}:${PHP_VERSION:-7.2}-${PHP_CONFIG:-dev}
         build:
