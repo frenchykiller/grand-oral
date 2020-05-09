@@ -20,8 +20,13 @@ RUN apt-get update && install_packages \
     iputils-ping \
     vim \
     cron \
-    supervisor \
-    iproute
+    iproute \
+    python-pip \
+    python-setuptools
+
+# Supervisord
+RUN pip install supervisor
+RUN pip install supervisor-stdout
 
 # Timezone & Locales
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
@@ -32,12 +37,6 @@ RUN /usr/sbin/update-locale LANG=fr_FR.UTF-8
 # Script for version control
 ADD conf/version /usr/bin/version
 RUN chmod +x /usr/bin/version
-
-# Image optimizers
-ARG INSTALL_IMAGE_OPTIMIZERS=false
-RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    install_packages jpegoptim optipng pngquant gifsicle \
-;fi
 
 # PHP
 ARG PHP_VERSION=7.2
@@ -161,6 +160,16 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
     && install_packages nodejs \
 ;fi
 
+# Image optimizers
+ARG INSTALL_IMAGE_OPTIMIZERS=false
+RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
+    install_packages jpegoptim optipng pngquant gifsicle \
+;fi
+
+# Cleanup
+RUN apt remove -y gnupg lsb-release libpng-dev gcc g++ libc-dev apt-transport-https apt-utils ca-certificates gawk
+RUN apt autoremove -y
+
 # SSMTP
 ADD conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
@@ -203,4 +212,4 @@ EXPOSE 80
 
 # Supervisor
 COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+CMD /usr/local/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf -n

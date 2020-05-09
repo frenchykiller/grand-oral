@@ -42,10 +42,10 @@ status: ## Status des conteneurs
 	@docker-compose ps
 
 logs: ## Affichage des logs des conteneurs
-	@docker-compose logs
+	@docker-compose logs --follow web
 
 build: .env ## Build du conteneur
-	@docker-compose build --compress --force-rm --no-cache web
+	@docker-compose build --compress web
 	
 rebuild: network stop remove build start ## Reconstruction et démarrage des conteneurs
 
