@@ -125,6 +125,7 @@ ARG PHP_SQLITE3=false
 RUN if [ ${PHP_SQLITE3} = true ]; then install_packages php${PHP_VERSION}-sqlite3 ;fi
 
 ARG PHP_XDEBUG=false
+ENV PHP_XDEBUG=${PHP_XDEBUG}
 RUN if [ ${PHP_XDEBUG} = true ]; then install_packages php${PHP_VERSION}-xdebug ;fi
 
 ARG PHP_XML=false
