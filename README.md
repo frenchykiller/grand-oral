@@ -4,13 +4,13 @@ Ce conteneur permet l'exécution d'un conteneur Apache-PHP configurable via un f
 
 ## Configuration
 
-**NB** : à chaque changement de configuration, il est nécessaire de rebuilder le conteneur. Pour cela utiliser `make rebuild`.
-
-L'activation des extensions PHP se fait dans le fichier [.env](.env). Il suffit de passer les paramètres à `true` et builder (ou rebuilder) le conteneur. Idem pour définir si composer et nodejs/npm doivent être installés.
+La configuration du conteneur se fait dans le fichier `.env`. Certaines modifications nécessitent un `rebuild` de l'image (voir dans le fichier `.env`), pour les autres un simple `make restart` suffira.
 
 ## Tâches cron
 
-Pour ajouter ou éditer une tâche, éditer le fichier [crontab](crontab), décommenter la ligne concernant le volume `crontab` dans le fichier `docker-compose.yml` et relancer le conteneur.
+Pour ajouter ou éditer une tâche, éditer le fichier [conf/crontab](conf/crontab).
+
+Pour que les tâches cron soient exécutées, définir `CRON_ENABLED` à `true` dans le fichier `.env` et lancer `make restart`.
 
 ## Récupération et mise à jour du registry
 

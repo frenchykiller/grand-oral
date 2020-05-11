@@ -1,7 +1,5 @@
 FROM bitnami/minideb:stretch
 ARG DEBIAN_FRONTEND=noninteractive
-ARG UID=1000
-ARG PHP_CONFIG=dev
 
 RUN apt-get update && install_packages \
     apt-transport-https \
@@ -142,8 +140,7 @@ ARG PHP_ZMQ=false
 RUN if [ ${PHP_ZMQ} = true ]; then install_packages php${PHP_VERSION}-zmq ;fi
 
 # PHP configuration
-ADD conf/${PHP_CONFIG}/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d
-COPY conf/${PHP_CONFIG}/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
+COPY conf/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
 
 # Composer
 ARG INSTALL_COMPOSER=false
@@ -181,10 +178,6 @@ ADD conf/remoteip.conf /etc/apache2/conf-enabled/remoteip.conf
 ADD conf/vhost.conf /etc/apache2/sites-enabled/000-default.conf
 ADD conf/prepend.php /var/www/prepend.php
 
-# User & Group
-RUN usermod -u ${UID} www-data
-RUN groupmod -g ${UID} www-data
-
 # Alias & git
 ADD conf/bashrc /root/.bashrc
 ADD conf/git_config /root/.gitconfig
@@ -201,12 +194,11 @@ HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 # Default workdir
 WORKDIR /var/www/app
 
-# Init script
+# Init scripts
+ENV PHP_VERSION=${PHP_VERSION}
 COPY conf/init.sh /usr/bin/init
 RUN chmod 0755 /usr/bin/init
-
-# Crontab
-COPY conf/crontab.sh /usr/bin/init_crontab
+COPY conf/init_crontab.sh /usr/bin/init_crontab
 RUN chmod 0755 /usr/bin/init_crontab
 
 EXPOSE 80
