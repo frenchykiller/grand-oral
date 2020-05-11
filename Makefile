@@ -14,16 +14,13 @@ help:
 .env:
 	@[ -f .env ] || ln -s .env.$(ENV) .env
 
-www:
-	@[ -d www ] || mkdir www
-
 network:
 	@docker network inspect proxy > /dev/null || docker network create proxy
 
-bash:
+bash: ## Accéder au conteneur en bash
 	@docker-compose exec -u www-data web bash
 
-bashroot:
+bashroot: ## Accéder au conteneur en bash en root
 	@docker-compose exec web bash
 
 start: www network .env ## Démarrage des conteneurs
@@ -60,3 +57,6 @@ remove: ## Suppression des conteneurs
 
 laravel: start ## Installation de Laravel
 	@docker-compose exec -u www-data web composer create-project --prefer-dist laravel/laravel . $(VERSION)
+	
+www:
+	@[ -d www ] || mkdir www
