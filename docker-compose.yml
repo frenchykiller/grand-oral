@@ -50,11 +50,11 @@ services:
                 - PHP_ZIP=${PHP_ZIP:-false}
                 - PHP_ZMQ=${PHP_ZMQ:-false}
         volumes:
+#            - ./crontab:/var/www/crontab
             - ./www:/var/www/app
             - ./data/log:/var/log/apache2
             - ./data/composer:/var/www/.composer
             - ./data/npm:/var/www/.npm
-            - ./crontab:/var/www/crontab
         expose:
             - "80"
         networks:
