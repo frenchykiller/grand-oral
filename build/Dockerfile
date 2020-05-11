@@ -206,7 +206,8 @@ COPY conf/init.sh /usr/bin/init
 RUN chmod 0755 /usr/bin/init
 
 # Crontab
-ADD conf/crontab /etc/cron.d/crontab
+COPY conf/crontab.sh /usr/bin/init_crontab
+RUN chmod 0755 /usr/bin/init_crontab
 
 EXPOSE 80
 

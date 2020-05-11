@@ -54,6 +54,7 @@ services:
             - ./data/log:/var/log/apache2
             - ./data/composer:/var/www/.composer
             - ./data/npm:/var/www/.npm
+            - ./crontab:/var/www/crontab
         expose:
             - "80"
         networks:

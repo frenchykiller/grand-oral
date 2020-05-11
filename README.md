@@ -10,7 +10,7 @@ L'activation des extensions PHP se fait dans le fichier [.env](.env). Il suffit 
 
 ## Tâches cron
 
-Pour ajouter ou éditer une tâche, éditer le fichier [build/crontab](build/crontab) et lancer `make rebuild`
+Pour ajouter ou éditer une tâche, éditer le fichier [crontab](crontab) et relancer le conteneur.
 
 ## Récupération et mise à jour du registry
 
