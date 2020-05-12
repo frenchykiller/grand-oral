@@ -153,8 +153,7 @@ RUN if [ ${INSTALL_COMPOSER} = true ]; then \
 ARG NODE_VERSION=10
 ARG INSTALL_NODE=false
 RUN if [ ${INSTALL_NODE} = true ]; then \
-    install_packages gnupg lsb-release libpng-dev gcc g++ libc-dev \
-    && curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
+    curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
     && install_packages nodejs \
 ;fi
 
@@ -163,10 +162,6 @@ ARG INSTALL_IMAGE_OPTIMIZERS=false
 RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
     install_packages jpegoptim optipng pngquant gifsicle \
 ;fi
-
-# Cleanup
-RUN apt remove -y gnupg lsb-release libpng-dev gcc g++ libc-dev apt-transport-https apt-utils ca-certificates gawk
-RUN apt autoremove -y
 
 # SSMTP
 ADD conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
