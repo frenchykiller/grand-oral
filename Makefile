@@ -4,7 +4,7 @@
 CYAN   = \033[0;36m
 NC     = \033[m
 ENV   ?= dev
-VERSION ?= 6
+VERSION ?= ^7
 
 -include .env
 
@@ -56,7 +56,7 @@ remove: ## Suppression des conteneurs
 	@docker-compose down --rmi all -v --remove-orphans
 
 laravel: start ## Installation de Laravel
-	@docker-compose exec -u www-data web composer create-project --prefer-dist laravel/laravel . $(VERSION)
+	@docker-compose exec -u www-data web bash -c "composer create-project --prefer-dist laravel/laravel . $(VERSION)"
 	
 www:
 	@[ -d www ] || mkdir www

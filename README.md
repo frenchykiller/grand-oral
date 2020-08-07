@@ -10,19 +10,21 @@ La configuration du conteneur se fait dans le fichier `.env`. Certaines modifica
 
 Pour ajouter ou éditer une tâche, éditer le fichier [conf/crontab](conf/crontab).
 
-Pour que les tâches cron soient exécutées, définir `CRON_ENABLED` à `true` dans le fichier `.env` et lancer `make restart`.
+Pour que les tâches cron soient exécutées, définir `CRON_ENABLED` à `true` dans le fichier `.env` et redémarrer le conteneur avec `make restart`.
 
 ## Récupération et mise à jour du registry
 
 Au démarrage la dernière version de l'image est automatiquement récupérée.
 
-Après une modification majeure, il est possible d'envoyer le build courant vers le registry avec `Make push`.
+Après une modification majeure, il est possible d'envoyer le build courant vers le registry avec `make push`.
 
 ## Installation de laravel
 
-Pour installer Laravel, lancer `Make laravel`.
+Pour installer Laravel, lancer `make laravel`.
 
-Par défaut la version installée est la 6, pour installer une version supérieure (ou inférieure), lancer `Make laravel VERSION=...`.
+Par défaut la version installée est la `^7`, pour installer une version supérieure (ou inférieure), préciser la en ajoutant `VERSION=` à la commande.
+
+Exemple : `make laravel VERSION=^6`
 
 ## Makefile
 
