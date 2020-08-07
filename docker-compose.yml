@@ -11,7 +11,8 @@ services:
             PHP_CONFIG: "${PHP_CONFIG:-dev}"
             CRON_ENABLED: "${CRON_ENABLED:-false}"
             UID: "${UID:-1000}"
-        image: ${REGISTRY}:${PHP_VERSION:-7.2}
+            XDEBUG: "${XDEBUG:-false}"
+        image: ${REGISTRY}:${PHP_VERSION:-7.4}
         build:
             context: ./build
             args:

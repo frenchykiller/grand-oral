@@ -37,7 +37,7 @@ ADD conf/version /usr/bin/version
 RUN chmod +x /usr/bin/version
 
 # PHP
-ARG PHP_VERSION=7.2
+ARG PHP_VERSION=7.4
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list
 RUN install_packages libapache2-mod-php${PHP_VERSION} php${PHP_VERSION} php${PHP_VERSION}-cli
