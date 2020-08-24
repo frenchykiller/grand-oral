@@ -9,6 +9,9 @@ VERSION ?= ^7
 ARCH := $(shell uname -m)
 export ARCH
 
+UID := $(shell id -u)
+export UID
+
 -include .env
 
 help:
