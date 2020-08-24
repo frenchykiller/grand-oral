@@ -1,7 +1,10 @@
 FROM debian:buster-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+COPY conf/install_packages /usr/sbin/install_packages
+RUN chmod +x /usr/sbin/install_packages
+
+RUN install_packages \
     apt-transport-https \
     apt-utils \
     ca-certificates \
@@ -29,7 +32,7 @@ RUN pip install supervisor-stdout
 
 # Timezone & Locales
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
-RUN echo "fr_FR.UTF-8 UTF-8" > /etc/locale.gen && locale-gen fr_FR.UTF-8
+RUN echo "fr_FR.UTF-8 UTF-8" > /etc/locale.gen && locale-gen --purge fr_FR.UTF-8
 RUN dpkg-reconfigure locales
 RUN /usr/sbin/update-locale LANG=fr_FR.UTF-8
 
@@ -41,105 +44,105 @@ RUN chmod +x /usr/bin/version
 ARG PHP_VERSION=7.4
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list
-RUN apt-get update && apt-get install -y libapache2-mod-php${PHP_VERSION} php${PHP_VERSION} php${PHP_VERSION}-cli
+RUN install_packages libapache2-mod-php${PHP_VERSION} php${PHP_VERSION} php${PHP_VERSION}-cli
 
 # Packages PHP
 ARG PHP_APC=false
-RUN if [ ${PHP_APC} = true ]; then apt-get install -y php${PHP_VERSION}-apc ;fi
+RUN if [ ${PHP_APC} = true ]; then install_packages php${PHP_VERSION}-apc ;fi
 
 ARG PHP_BCMATH=false
-RUN if [ ${PHP_BCMATH} = true ]; then apt-get install -y php${PHP_VERSION}-bcmath ;fi
+RUN if [ ${PHP_BCMATH} = true ]; then install_packages php${PHP_VERSION}-bcmath ;fi
 
 ARG PHP_CALENDAR=false
-RUN if [ ${PHP_CALENDAR} = true ]; then apt-get install -y php${PHP_VERSION}-calendar ;fi
+RUN if [ ${PHP_CALENDAR} = true ]; then install_packages php${PHP_VERSION}-calendar ;fi
 
 ARG PHP_CURL=false
-RUN if [ ${PHP_CURL} = true ]; then apt-get install -y php${PHP_VERSION}-curl ;fi
+RUN if [ ${PHP_CURL} = true ]; then install_packages php${PHP_VERSION}-curl ;fi
 
 ARG PHP_DOM=false
-RUN if [ ${PHP_DOM} = true ]; then apt-get install -y php${PHP_VERSION}-dom ;fi
+RUN if [ ${PHP_DOM} = true ]; then install_packages php${PHP_VERSION}-dom ;fi
 
 ARG PHP_EXIF=false
-RUN if [ ${PHP_EXIF} = true ]; then apt-get install -y php${PHP_VERSION}-exif ;fi
+RUN if [ ${PHP_EXIF} = true ]; then install_packages php${PHP_VERSION}-exif ;fi
 
 ARG PHP_FILEINFO=false
-RUN if [ ${PHP_FILEINFO} = true ]; then apt-get install -y php${PHP_VERSION}-fileinfo ;fi
+RUN if [ ${PHP_FILEINFO} = true ]; then install_packages php${PHP_VERSION}-fileinfo ;fi
 
 ARG PHP_GD=false
-RUN if [ ${PHP_GD} = true ]; then apt-get install -y php${PHP_VERSION}-gd ;fi
+RUN if [ ${PHP_GD} = true ]; then install_packages php${PHP_VERSION}-gd ;fi
 
 ARG PHP_GMP=false
-RUN if [ ${PHP_GMP} = true ]; then apt-get install -y php${PHP_VERSION}-gmp ;fi
+RUN if [ ${PHP_GMP} = true ]; then install_packages php${PHP_VERSION}-gmp ;fi
 
 ARG PHP_IMAGICK=false
-RUN if [ ${PHP_IMAGICK} = true ]; then apt-get install -y php${PHP_VERSION}-imagick ;fi
+RUN if [ ${PHP_IMAGICK} = true ]; then install_packages php${PHP_VERSION}-imagick ;fi
 
 ARG PHP_IMAP=false
-RUN if [ ${PHP_IMAP} = true ]; then apt-get install -y php${PHP_VERSION}-imap ;fi
+RUN if [ ${PHP_IMAP} = true ]; then install_packages php${PHP_VERSION}-imap ;fi
 
 ARG PHP_INTL=false
-RUN if [ ${PHP_INTL} = true ]; then apt-get install -y php${PHP_VERSION}-intl ;fi
+RUN if [ ${PHP_INTL} = true ]; then install_packages php${PHP_VERSION}-intl ;fi
 
 ARG PHP_JSON=false
-RUN if [ ${PHP_JSON} = true ]; then apt-get install -y php${PHP_VERSION}-json ;fi
+RUN if [ ${PHP_JSON} = true ]; then install_packages php${PHP_VERSION}-json ;fi
 
 ARG PHP_LDAP=false
-RUN if [ ${PHP_LDAP} = true ]; then apt-get install -y php${PHP_VERSION}-ldap ;fi
+RUN if [ ${PHP_LDAP} = true ]; then install_packages php${PHP_VERSION}-ldap ;fi
 
 ARG PHP_MBSTRING=false
-RUN if [ ${PHP_MBSTRING} = true ]; then apt-get install -y php${PHP_VERSION}-mbstring ;fi
+RUN if [ ${PHP_MBSTRING} = true ]; then install_packages php${PHP_VERSION}-mbstring ;fi
 
 ARG PHP_MCRYPT=false
 RUN if [ ${PHP_MCRYPT} = true ]; then \
         if [ $(version ${PHP_VERSION}) -lt $(version 7.2) ]; then \
-            apt-get install -y php${PHP_VERSION}-mcrypt ; \
+            install_packages php${PHP_VERSION}-mcrypt ; \
         else \
             echo "No mcrypt package for PHP >= 7.2" \
         ; fi \
     ;fi
 
 ARG PHP_MEMCACHED=false
-RUN if [ ${PHP_MEMCACHED} = true ]; then apt-get install -y php${PHP_VERSION}-memcached ;fi
+RUN if [ ${PHP_MEMCACHED} = true ]; then install_packages php${PHP_VERSION}-memcached ;fi
 
 ARG PHP_MYSQL=false
-RUN if [ ${PHP_MYSQL} = true ]; then apt-get install -y php${PHP_VERSION}-mysql ;fi
+RUN if [ ${PHP_MYSQL} = true ]; then install_packages php${PHP_VERSION}-mysql ;fi
 
 ARG PHP_MONGO=false
-RUN if [ ${PHP_MONGO} = true ]; then apt-get install -y php${PHP_VERSION}-mongo ;fi
+RUN if [ ${PHP_MONGO} = true ]; then install_packages php${PHP_VERSION}-mongo ;fi
 
 ARG PHP_OPCACHE=false
-RUN if [ ${PHP_OPCACHE} = true ]; then apt-get install -y php${PHP_VERSION}-opcache ;fi
+RUN if [ ${PHP_OPCACHE} = true ]; then install_packages php${PHP_VERSION}-opcache ;fi
 
 ARG PHP_ODBC=false
-RUN if [ ${PHP_ODBC} = true ]; then apt-get install -y php${PHP_VERSION}-odbc ;fi
+RUN if [ ${PHP_ODBC} = true ]; then install_packages php${PHP_VERSION}-odbc ;fi
 
 ARG PHP_PGSQL=false
-RUN if [ ${PHP_PGSQL} = true ]; then apt-get install -y php${PHP_VERSION}-pgsql ;fi
+RUN if [ ${PHP_PGSQL} = true ]; then install_packages php${PHP_VERSION}-pgsql ;fi
 
 ARG PHP_REDIS=false
-RUN if [ ${PHP_REDIS} = true ]; then apt-get install -y php${PHP_VERSION}-redis ;fi
+RUN if [ ${PHP_REDIS} = true ]; then install_packages php${PHP_VERSION}-redis ;fi
 
 ARG PHP_SOAP=false
-RUN if [ ${PHP_SOAP} = true ]; then apt-get install -y php${PHP_VERSION}-soap ;fi
+RUN if [ ${PHP_SOAP} = true ]; then install_packages php${PHP_VERSION}-soap ;fi
 
 ARG PHP_SQLITE3=false
-RUN if [ ${PHP_SQLITE3} = true ]; then apt-get install -y php${PHP_VERSION}-sqlite3 ;fi
+RUN if [ ${PHP_SQLITE3} = true ]; then install_packages php${PHP_VERSION}-sqlite3 ;fi
 
 ARG PHP_XDEBUG=false
 ENV PHP_XDEBUG=${PHP_XDEBUG}
-RUN if [ ${PHP_XDEBUG} = true ]; then apt-get install -y php${PHP_VERSION}-xdebug ;fi
+RUN if [ ${PHP_XDEBUG} = true ]; then install_packages php${PHP_VERSION}-xdebug ;fi
 
 ARG PHP_XML=false
-RUN if [ ${PHP_XML} = true ]; then apt-get install -y php${PHP_VERSION}-xml ;fi
+RUN if [ ${PHP_XML} = true ]; then install_packages php${PHP_VERSION}-xml ;fi
 
 ARG PHP_XMLRPC=false
-RUN if [ ${PHP_XMLRPC} = true ]; then apt-get install -y php${PHP_VERSION}-xmlrpc ;fi
+RUN if [ ${PHP_XMLRPC} = true ]; then install_packages php${PHP_VERSION}-xmlrpc ;fi
 
 ARG PHP_ZIP=false
-RUN if [ ${PHP_ZIP} = true ]; then apt-get install -y php${PHP_VERSION}-zip ;fi
+RUN if [ ${PHP_ZIP} = true ]; then install_packages php${PHP_VERSION}-zip ;fi
 
 ARG PHP_ZMQ=false
-RUN if [ ${PHP_ZMQ} = true ]; then apt-get install -y php${PHP_VERSION}-zmq ;fi
+RUN if [ ${PHP_ZMQ} = true ]; then install_packages php${PHP_VERSION}-zmq ;fi
 
 # PHP configuration
 COPY conf/php-cli.ini /etc/php/${PHP_VERSION}/cli/conf.d/php.ini
@@ -155,18 +158,21 @@ ARG NODE_VERSION=10
 ARG INSTALL_NODE=false
 RUN if [ ${INSTALL_NODE} = true ]; then \
     curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
-    && apt-get install -y nodejs \
+    && install_packages nodejs \
 ;fi
 
 # Image optimizers
 ARG INSTALL_IMAGE_OPTIMIZERS=false
 RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    apt-get install -y jpegoptim optipng pngquant gifsicle \
+    install_packages jpegoptim optipng pngquant gifsicle \
 ;fi
 
-# Optimization
-RUN apt-get -y --purge --autoremove remove gcc
-RUN rm -rf /var/lib/apt/lists/*
+# Cleanup
+RUN apt-get -y --purge --autoremove remove python3.7
+RUN rm -rf /var/lib/apt/lists/* \
+    /var/cache/apt/archives/* \
+    /usr/share/doc/* \
+    /var/lib/dpkg/info/*.md5sums
 
 # MSMTP
 ADD conf/msmtprc /etc/msmtprc
