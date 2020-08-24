@@ -6,6 +6,9 @@ NC     = \033[m
 ENV   ?= dev
 VERSION ?= ^7
 
+ARCH := $(shell uname -m)
+export ARCH
+
 -include .env
 
 help:

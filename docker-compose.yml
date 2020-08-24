@@ -12,7 +12,7 @@ services:
             CRON_ENABLED: "${CRON_ENABLED:-false}"
             UID: "${UID:-1000}"
             XDEBUG: "${XDEBUG:-false}"
-        image: ${REGISTRY}:${PHP_VERSION:-7.4}
+        image: ${REGISTRY}:${PHP_VERSION:-7.4}-${ARCH:?err}
         build:
             context: ./build
             args:
