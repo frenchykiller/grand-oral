@@ -1,5 +1,5 @@
 FROM debian:buster-slim
-ARG DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 COPY conf/install_packages /usr/sbin/install_packages
 RUN chmod +x /usr/sbin/install_packages
@@ -31,10 +31,10 @@ RUN pip install supervisor
 RUN pip install supervisor-stdout
 
 # Timezone & Locales
+ARG LOCALE=fr_FR.UTF-8
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
-RUN echo "fr_FR.UTF-8 UTF-8" > /etc/locale.gen && locale-gen --purge fr_FR.UTF-8
-RUN dpkg-reconfigure locales
-RUN /usr/sbin/update-locale LANG=fr_FR.UTF-8
+RUN echo "${LOCALE} UTF-8" > /etc/locale.gen && locale-gen && dpkg-reconfigure --frontend=noninteractive locales && update-locale LANG=${LOCALE}
+ENV LANG ${LOCALE}
 
 # Script for version control
 ADD conf/version /usr/bin/version

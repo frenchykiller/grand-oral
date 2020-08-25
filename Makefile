@@ -49,8 +49,11 @@ logs: ## Affichage des logs des conteneurs
 
 build: .env ## Build du conteneur
 	@docker-compose build --compress web
+
+build-no-cache: .env
+	@docker-compose build --no-cache --compress web
 	
-rebuild: network stop remove build start ## Reconstruction et démarrage des conteneurs
+rebuild: network stop remove build-no-cache start ## Reconstruction et démarrage des conteneurs
 
 pull: .env ## Pull de la dernière version du conteneur
 	@docker-compose pull web
