@@ -65,7 +65,7 @@ remove: ## Suppression des conteneurs
 	@docker-compose down --rmi all -v --remove-orphans
 
 laravel: start ## Installation de Laravel
-	@docker-compose exec -u www-data web bash -c "composer create-project --prefer-dist laravel/laravel . $(VERSION)"
+	@docker-compose exec -T -u www-data web bash -c "composer create-project --prefer-dist laravel/laravel . $(VERSION)"
 	
 www:
 	@[ -d www/$(PUBLIC_FOLDER) ] || mkdir -p www/$(PUBLIC_FOLDER)
