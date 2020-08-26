@@ -68,4 +68,4 @@ laravel: start ## Installation de Laravel
 	@docker-compose exec -T -u www-data web bash -c "composer create-project --prefer-dist laravel/laravel . $(VERSION)"
 	
 www:
-	@[ -d www/$(PUBLIC_FOLDER) ] || mkdir -p www/$(PUBLIC_FOLDER)
+	@[ -d www ] || mkdir -p www
