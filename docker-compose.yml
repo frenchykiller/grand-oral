@@ -55,8 +55,8 @@ services:
             - ./conf:/var/www/conf
             - ./www:/var/www/app
             - ./data/log:/var/log/apache2
-            - ./data/composer:/var/www/.composer
-            - ./data/npm:/var/www/.npm
+            - ~/.cache/composer:/var/www/.composer
+            - ~/.npm:/var/www/.npm
         expose:
             - "80"
         networks:
