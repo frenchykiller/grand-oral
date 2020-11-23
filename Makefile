@@ -66,6 +66,9 @@ remove: ## Suppression des conteneurs
 
 laravel: start ## Installation de Laravel
 	@docker-compose exec -T -u www-data web bash -c "composer create-project --prefer-dist laravel/laravel . $(VERSION)"
+
+exec: ## Exécuter une commande dans le conteneur
+	@docker-compose exec -T -u www-data web bash -c "$(COMMAND)"
 	
 www:
 	@[ -d www ] || mkdir -p www
