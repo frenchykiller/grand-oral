@@ -4,7 +4,7 @@
 CYAN   = \033[0;36m
 NC     = \033[m
 ENV   ?= dev
-VERSION ?= ^7
+VERSION ?= ^8
 
 ARCH := $(shell uname -m)
 export ARCH
