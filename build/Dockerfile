@@ -84,7 +84,9 @@ ARG PHP_INTL=false
 RUN if [ ${PHP_INTL} = true ]; then install_packages php${PHP_VERSION}-intl ;fi
 
 ARG PHP_JSON=false
-RUN if [ ${PHP_JSON} = true ]; then install_packages php${PHP_VERSION}-json ;fi
+RUN if [ $(version ${PHP_VERSION}) -lt $(version 8.0) ]; then \
+        if [ ${PHP_JSON} = true ]; then install_packages php${PHP_VERSION}-json ;fi \
+    ;fi
 
 ARG PHP_LDAP=false
 RUN if [ ${PHP_LDAP} = true ]; then install_packages php${PHP_VERSION}-ldap ;fi
@@ -93,13 +95,7 @@ ARG PHP_MBSTRING=false
 RUN if [ ${PHP_MBSTRING} = true ]; then install_packages php${PHP_VERSION}-mbstring ;fi
 
 ARG PHP_MCRYPT=false
-RUN if [ ${PHP_MCRYPT} = true ]; then \
-        if [ $(version ${PHP_VERSION}) -lt $(version 7.2) ]; then \
-            install_packages php${PHP_VERSION}-mcrypt ; \
-        else \
-            echo "No mcrypt package for PHP >= 7.2" \
-        ; fi \
-    ;fi
+RUN if [ ${PHP_MCRYPT} = true ]; then install_packages php${PHP_VERSION}-mcrypt ;fi
 
 ARG PHP_MEMCACHED=false
 RUN if [ ${PHP_MEMCACHED} = true ]; then install_packages php${PHP_VERSION}-memcached ;fi
@@ -154,7 +150,7 @@ RUN if [ ${INSTALL_COMPOSER} = true ]; then \
 ;fi
 
 # NodeJs
-ARG NODE_VERSION=10
+ARG NODE_VERSION=14
 ARG INSTALL_NODE=false
 RUN if [ ${INSTALL_NODE} = true ]; then \
     curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
