@@ -18,7 +18,7 @@ help:
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 .env:
-	@[ -f .env ] || ln -s .env.$(ENV) .env
+	@[ -f .env ] || cp .env.$(ENV) .env
 
 network:
 	@docker network inspect proxy > /dev/null || docker network create proxy
