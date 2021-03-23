@@ -52,6 +52,7 @@ services:
                 - PHP_ZIP=${PHP_ZIP:-false}
                 - PHP_ZMQ=${PHP_ZMQ:-false}
         volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
             - ./conf:/var/www/conf
             - ./www:/var/www/app
             - ./data/log:/var/log/apache2

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ ! -f /etc/hosts_orig ]; then cp /etc/hosts /etc/hosts_orig; fi
+cp /etc/hosts_orig /etc/hosts
+{{ range $hosts, $containers := groupBy $ "Env.SELF_SIGNED_HOST" }}
+{{ range $container := $containers }}
+{{ range $host := split $hosts "," }}
+{{ $host := trim $host }}
+echo "$(getent hosts {{ $container.Name }} | awk '{ print $1 }') {{ $host }}" >> /etc/hosts
+{{ end }}
+{{ end }}
+{{ end }}

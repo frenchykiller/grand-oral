@@ -197,6 +197,15 @@ HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 # Default workdir
 WORKDIR /var/www/app
 
+# Dockergen (build hosts)
+ENV DOCKER_GEN_VERSION 0.7.4
+ENV DOCKER_HOST unix:///var/run/docker.sock
+ENV NGINX_PROXY_CONTAINER proxy
+RUN wget https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz \
+    && tar xvzf docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz -C /usr/local/bin \
+    && rm docker-gen-linux-amd64-$DOCKER_GEN_VERSION.tar.gz
+ADD conf/buildhosts.tmpl /var/www/buildhosts.tmpl
+
 # Init scripts
 ENV PHP_VERSION=${PHP_VERSION}
 COPY conf/init.sh /usr/bin/init
