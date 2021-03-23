@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+if [ -e /var/run/docker.sock ]; then 
 if [ ! -f /etc/hosts_orig ]; then cp /etc/hosts /etc/hosts_orig; fi
 cp /etc/hosts_orig /etc/hosts
 {{ range $hosts, $containers := groupBy $ "Env.SELF_SIGNED_HOST" }}
@@ -10,3 +11,4 @@ echo "$(getent hosts {{ $container.Name }} | awk '{ print $1 }') {{ $host }}" >>
 {{ end }}
 {{ end }}
 {{ end }}
+fi
