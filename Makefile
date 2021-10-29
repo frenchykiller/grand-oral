@@ -22,6 +22,7 @@ help:
 
 network:
 	@docker network inspect proxy > /dev/null || docker network create proxy
+	@docker network inspect db > /dev/null || docker network create db
 
 bash: ## Accéder au conteneur en bash
 	@docker-compose exec -u www-data web bash

@@ -1,0 +1,10 @@
+[mysqld]
+server-id=6321162
+log_bin=mysql-bin
+log_error=mysql-bin.err
+
+[client]
+user=root
+password=root
+host=127.0.0.1
+
