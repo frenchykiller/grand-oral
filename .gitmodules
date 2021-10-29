@@ -1,0 +1,6 @@
+[submodule "www/packages/sebastienheyd/boilerplate-blog"]
+	path = www/packages/sebastienheyd/boilerplate-blog
+	url = git@github.com:frenchykiller/boilerplate-blog.git
+[submodule "www/packages/sebastienheyd/boilerplate-cms"]
+	path = www/packages/sebastienheyd/boilerplate-cms
+	url = git@github.com:frenchykiller/boilerplate-blog.git
