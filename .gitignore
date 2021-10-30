@@ -1,5 +1,4 @@
 .idea
-.env
 /data
 /www/node_modules
 /www/public/hot

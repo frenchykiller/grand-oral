@@ -16,7 +16,6 @@
                     <div class="container-fluid">
                         <a class="navbar-brand h1 mb-0" href="/">{{ config('app.name') }}</a>
                         @widget(SebastienHeyd\BoilerplateCMS\Widgets\Menu::class,["menu_id"=>"1","menu_view"=>"theme::menu.menu","item_view"=>"theme::menu.menu_item"])
-                        @widget(SebastienHeyd\BoilerplateCMS\Widgets\Menu::class,["menu_id"=>"2","menu_view"=>"theme::menu.menu","item_view"=>"theme::menu.menu_item"])
                     </div>
                 </nav>
             </header>
