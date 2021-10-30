@@ -3,4 +3,4 @@
 	url = git@github.com:frenchykiller/boilerplate-blog.git
 [submodule "www/packages/sebastienheyd/boilerplate-cms"]
 	path = www/packages/sebastienheyd/boilerplate-cms
-	url = git@github.com:frenchykiller/boilerplate-blog.git
+	url = git@github.com:frenchykiller/boilerplate-cms.git
