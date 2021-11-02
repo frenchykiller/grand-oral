@@ -17,25 +17,25 @@ return [
     ],
     'sidebar' => [
         'type'    => 'dark',
-        'shadow'  => 4,
+        'shadow'  => 0,
         'border'  => false,
         'compact' => false,
         'links'   => [
             'bg'     => 'blue',
-            'shadow' => 1,
+            'shadow' => 0,
         ],
         'brand'   => [
             'bg'   => 'gray-dark',
             'logo' => [
                 'bg'     => 'blue',
                 'icon'   => '<i class="fa fa-cubes"></i>',
-                'text'   => '<strong>BO</strong>ilerplate',
-                'shadow' => 2,
+                'text'   => '<strong>BO</strong> Grand Oral',
+                'shadow' => 0,
             ],
         ],
         'user'    => [
             'visible' => true,
-            'shadow'  => 2,
+            'shadow'  => 0,
         ],
     ],
     'footer'  => [
