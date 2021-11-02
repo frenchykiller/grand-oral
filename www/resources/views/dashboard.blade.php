@@ -1,4 +1,9 @@
-@extends('boilerplate::layout.index')
+@extends('boilerplate::layout.index', [
+    'title' => '',
+    'subtitle' => '',
+    'breadcrumb' => [
+    ]
+])
 
 @section('content')
     <x-boilerplate::card>
