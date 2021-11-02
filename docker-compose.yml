@@ -64,7 +64,6 @@ services:
             - proxy
     mariadb:
         hostname: mariadb
-        container_name: mariadb
         image: mariadb:latest
         restart: unless-stopped
         expose:
@@ -79,7 +78,6 @@ services:
             - proxy
     phpmyadmin:
         hostname: phpmyadmin
-        container_name: phpmyadmin
         image: phpmyadmin/phpmyadmin
         volumes:
             - ./conf/pma/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
@@ -95,7 +93,6 @@ services:
         depends_on:
             - mariadb
     proxy:
-        container_name: proxy
         restart: unless-stopped
         image: nginxproxy/nginx-proxy:alpine
         ports:
@@ -109,7 +106,6 @@ services:
         networks:
             - proxy
     proxy-companion:
-        container_name: proxy-companion
         restart: unless-stopped
         image: sebastienheyd/self-signed-proxy-companion
         volumes:
