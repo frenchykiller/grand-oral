@@ -13,16 +13,21 @@
             Bonnes pratiques
         </x-slot>
         Afin d'assurer que tout le monde puisse retrouver facilement les informations dans les différents articles, voici quelques bonnes pratiques à mettre en oeuvre.
-        <br>
+        <p>
         1. Utiliser des titres. Vous disposez d'un éditeur de texte riche pour la rédaction des articles. Profitez-en pour segmenter vos articles de manière claire et logique. Cela permet de retrouver facilement les informations au sein d'un article.
-        <br>
+        </p>
+        <p>
         2. Renseigner le résumé de l'article. Le résumé est affiché dans la liste des articles et en tête de chaque article, il permet de savoir facilement de quoi traite l'article.
-        <br>
+        </p>
+        <p>
         3. Traiter une seule problématique par article. Sinon plus personne ne s'en sort...
-        <br>
+        </p>
+        <p>
         4. Insérer les liens vers les éventuelles resources externes et/ou présentations powerpoint en début d'article afin qu'ils soient facilement accessibles. En cas de resources concernant une sous-partie spécifique de l'article, insérer le lien dans la section appropriée.
-        <br>
+        </p>
+        <p>
         5. Renseigner une catégorie adaptée pour l'articles. Un article publié sous la mauvaise catégorie se trouvera dans la mauvaise rubrique du site. Un article sans catégorie n'apparaitra pas sur le site, même une fois publié.
+        </p>
     </x-boilerplate::card>
     <x-boilerplate::card>
         <x-slot name="header">
