@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('cms:index')->daily();
+        $schedule->command('disable:users')->daily();
     }
 
     /**
