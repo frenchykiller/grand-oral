@@ -39,7 +39,7 @@ return [
         ],
     ],
     'footer'  => [
-        'visible'    => true,
+        'visible'    => false,
         'vendorname' => 'Boilerplate',
         'vendorlink' => '',
     ],
