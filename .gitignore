@@ -16,3 +16,5 @@
 /www/yarn-error.log
 /www/.idea
 /www/.vscode
+.env
+/certs

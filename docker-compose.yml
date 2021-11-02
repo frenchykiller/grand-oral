@@ -58,8 +58,8 @@ services:
             - ./data/log:/var/log/apache2
             - ~/.cache/composer:/var/www/.composer
             - ~/.npm:/var/www/.npm
-        expose:
-            - "80"
+        ports:
+            - "5105:80"
         networks:
             - proxy
     mariadb:
@@ -83,6 +83,9 @@ services:
             - ./conf/pma/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
             - ./conf/pma/ovh.cert:/etc/phpmyadmin/ovh.cert
         restart: unless-stopped
+        ports:
+            - "5103:3306"
+            - "5104:80"
         environment:
             VIRTUAL_HOST: "pma"
             SELF_SIGNED_HOST: "pma"
