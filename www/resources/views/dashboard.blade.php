@@ -12,7 +12,9 @@
         <x-slot name="header">
             Bonnes pratiques
         </x-slot>
+        <p>
         Afin d'assurer que tout le monde puisse retrouver facilement les informations dans les différents articles, voici quelques bonnes pratiques à mettre en oeuvre.
+        </p>
         <p>
         1. Utiliser des titres. Vous disposez d'un éditeur de texte riche pour la rédaction des articles. Profitez-en pour segmenter vos articles de manière claire et logique. Cela permet de retrouver facilement les informations au sein d'un article.
         </p>
