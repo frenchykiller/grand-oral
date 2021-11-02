@@ -18,3 +18,4 @@
 /www/.vscode
 .env
 /certs
+/www/.env.prod

@@ -59,7 +59,7 @@ services:
             - ~/.cache/composer:/var/www/.composer
             - ~/.npm:/var/www/.npm
         ports:
-            - "5105:80"
+            - "5100:80"
         networks:
             - proxy
     mariadb:
@@ -83,9 +83,6 @@ services:
             - ./conf/pma/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
             - ./conf/pma/ovh.cert:/etc/phpmyadmin/ovh.cert
         restart: unless-stopped
-        ports:
-            - "5103:3306"
-            - "5104:80"
         environment:
             VIRTUAL_HOST: "pma"
             SELF_SIGNED_HOST: "pma"
@@ -95,20 +92,6 @@ services:
             - proxy
         depends_on:
             - mariadb
-    proxy:
-        restart: unless-stopped
-        image: nginxproxy/nginx-proxy:alpine
-        ports:
-            - "5100:80"
-            - "5101:443"
-            - "5102:3306"
-        volumes:
-            - ./certs:/etc/nginx/certs:ro
-            - ./vhost.d:/etc/nginx/vhost.d
-            - ./conf.d/proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
-            - /var/run/docker.sock:/tmp/docker.sock:ro
-        networks:
-            - proxy
     proxy-companion:
         restart: unless-stopped
         image: sebastienheyd/self-signed-proxy-companion
