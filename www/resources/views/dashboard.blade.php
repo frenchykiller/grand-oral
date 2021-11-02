@@ -10,7 +10,9 @@
 @section('content')
     <x-boilerplate::card>
         <x-slot name="header">
-            Bonnes pratiques
+            <div class="h2">
+                Bonnes pratiques
+            </div>
         </x-slot>
         <p>
         Afin d'assurer que tout le monde puisse retrouver facilement les informations dans les différents articles, voici quelques bonnes pratiques à mettre en oeuvre.
@@ -33,7 +35,9 @@
     </x-boilerplate::card>
     <x-boilerplate::card>
         <x-slot name="header">
-            F.A.Q
+            <div class="h2">
+                F.A.Q
+            </div>
         </x-slot>
         <p><strong>Q: Comment créer un nouvel article?</strong></p>
         <p>A: Rendez-vous dans la rubrique "Rédiger un article".</p>
