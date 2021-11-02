@@ -58,8 +58,6 @@ services:
             - ./data/log:/var/log/apache2
             - ~/.cache/composer:/var/www/.composer
             - ~/.npm:/var/www/.npm
-        ports:
-            - "5100:80"
         networks:
             - proxy
     mariadb:
