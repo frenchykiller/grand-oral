@@ -51,7 +51,7 @@ migrations: .env
 	@[ ! -f .env ] || php artisan migrate --force
 
 down:
-	@php artisan down --render="errors::maint" --allow=77.158.202.221
+	@php artisan down --render="errors::maint" --secret="1630542a-246b-4b66-afa1-dd72a4c43515"
 
 up:
 	@php artisan up
