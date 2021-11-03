@@ -51,7 +51,7 @@ migrations: .env
 	@[ ! -f .env ] || php artisan migrate --force
 
 down:
-	@php artisan down --message="Site en maintenance, de retour dans quelques instants..." --allow=77.158.202.221
+	@php artisan down --render="errors::maint" --allow=77.158.202.221
 
 up:
 	@php artisan up
