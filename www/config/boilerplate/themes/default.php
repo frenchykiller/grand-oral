@@ -17,29 +17,29 @@ return [
     ],
     'sidebar' => [
         'type'    => 'dark',
-        'shadow'  => 0,
+        'shadow'  => 4,
         'border'  => false,
         'compact' => false,
         'links'   => [
             'bg'     => 'blue',
-            'shadow' => 0,
+            'shadow' => 1,
         ],
         'brand'   => [
             'bg'   => 'gray-dark',
             'logo' => [
                 'bg'     => 'blue',
                 'icon'   => '<i class="fa fa-cubes"></i>',
-                'text'   => '<strong>BO</strong> Grand Oral',
-                'shadow' => 0,
+                'text'   => '<strong>BO</strong>ilerplate',
+                'shadow' => 2,
             ],
         ],
         'user'    => [
             'visible' => true,
-            'shadow'  => 0,
+            'shadow'  => 2,
         ],
     ],
     'footer'  => [
-        'visible'    => false,
+        'visible'    => true,
         'vendorname' => 'Boilerplate',
         'vendorlink' => '',
     ],

@@ -11,15 +11,7 @@
     </head>
     <body ontouchstart="">
         <div id="page" class="d-flex flex-column">
-            <header>
-                <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                    <div class="container-fluid">
-                        <a class="navbar-brand h1 mb-0" href="/">{{ config('app.name') }}</a>
-                        @widget(SebastienHeyd\BoilerplateCMS\Widgets\Menu::class,["menu_id"=>"1","menu_view"=>"theme::menu.menu","item_view"=>"theme::menu.menu_item"])
-                        @widget(SebastienHeyd\BoilerplateCMS\Widgets\Menu::class,["menu_id"=>"2","menu_view"=>"theme::menu.menu","item_view"=>"theme::menu.menu_item"])
-                    </div>
-                </nav>
-            </header>
+            @include('theme::partials.header')
             <main role="main" class="flex-grow-1">
                 {!! $content !!}
             </main>

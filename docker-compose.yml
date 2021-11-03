@@ -58,51 +58,11 @@ services:
             - ./data/log:/var/log/apache2
             - ~/.cache/composer:/var/www/.composer
             - ~/.npm:/var/www/.npm
-        ports:
-            - "5100:80"
-        networks:
-            - proxy
-    mariadb:
-        hostname: mariadb
-        image: mariadb:latest
-        restart: unless-stopped
         expose:
-            - "3306"
-        volumes:
-            - ./data/mariadb:/var/lib/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            TZ: "Europe/Paris"
-        networks:
-            - db
-            - proxy
-    phpmyadmin:
-        hostname: phpmyadmin
-        image: phpmyadmin/phpmyadmin
-        volumes:
-            - ./conf/pma/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
-            - ./conf/pma/ovh.cert:/etc/phpmyadmin/ovh.cert
-        restart: unless-stopped
-        environment:
-            VIRTUAL_HOST: "pma"
-            SELF_SIGNED_HOST: "pma"
-            UPLOAD_LIMIT: 128000000
-        networks:
-            - db
-            - proxy
-        depends_on:
-            - mariadb
-    proxy-companion:
-        restart: unless-stopped
-        image: sebastienheyd/self-signed-proxy-companion
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock:ro
-            - ./certs:/etc/nginx/certs:rw
+            - "80"
         networks:
             - proxy
 
 networks:
     proxy:
-        external: true
-    db:
         external: true
