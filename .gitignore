@@ -19,3 +19,4 @@
 .env
 /certs
 /www/.env.prod
+docker-compose.yml

@@ -1,0 +1,121 @@
+version: '3'
+services:
+    web:
+        restart: unless-stopped
+        environment:
+            VIRTUAL_HOST: "${VIRTUAL_HOST:?err}"
+            SELF_SIGNED_HOST: "${VIRTUAL_HOST:?err}"
+            LETSENCRYPT_HOST: "${VIRTUAL_HOST:?err}"
+            PUBLIC_FOLDER: "${PUBLIC_FOLDER}"
+            PHP_CONFIG: "${PHP_CONFIG:-dev}"
+            CRON_ENABLED: "${CRON_ENABLED:-false}"
+            UID: "${UID:-1000}"
+            XDEBUG: "${XDEBUG:-false}"
+        image: ${REGISTRY}:${PHP_VERSION:-7.4}-${ARCH:?err}
+        build:
+            context: ./build
+            args:
+                - PHP_VERSION=${PHP_VERSION:-7.2}
+                - INSTALL_COMPOSER=${INSTALL_COMPOSER:-false}
+                - INSTALL_NODE=${INSTALL_NODE:-false}
+                - NODE_VERSION=${NODE_VERSION:-8}
+                - INSTALL_IMAGE_OPTIMIZERS=${INSTALL_IMAGE_OPTIMIZERS:-false}
+                - PHP_APC=${PHP_APC:-false}
+                - PHP_BCMATH=${PHP_BCMATH:-false}
+                - PHP_CALENDAR=${PHP_CALENDAR:-false}
+                - PHP_CURL=${PHP_CURL:-false}
+                - PHP_DOM=${PHP_DOM:-false}
+                - PHP_EXIF=${PHP_EXIF:-false}
+                - PHP_FILEINFO=${PHP_FILEINFO:-false}
+                - PHP_GD=${PHP_GD:-false}
+                - PHP_GMP=${PHP_GMP:-false}
+                - PHP_IMAGICK=${PHP_IMAGICK:-false}
+                - PHP_IMAP=${PHP_IMAP:-false}
+                - PHP_INTL=${PHP_INTL:-false}
+                - PHP_JSON=${PHP_JSON:-false}
+                - PHP_LDAP=${PHP_LDAP:-false}
+                - PHP_MBSTRING=${PHP_MBSTRING:-false}
+                - PHP_MCRYPT=${PHP_MCRYPT:-false}
+                - PHP_MEMCACHED=${PHP_MEMCACHED:-false}
+                - PHP_MONGO=${PHP_MONGO:-false}
+                - PHP_MYSQL=${PHP_MYSQL:-false}
+                - PHP_ODBC=${PHP_ODBC:-false}
+                - PHP_OPCACHE=${PHP_OPCACHE:-false}
+                - PHP_PGSQL=${PHP_PGSQL:-false}
+                - PHP_REDIS=${PHP_REDIS:-false}
+                - PHP_SOAP=${PHP_SOAP:-false}
+                - PHP_SQLITE3=${PHP_SQLITE3:-false}
+                - PHP_XDEBUG=${PHP_XDEBUG:-false}
+                - PHP_XML=${PHP_XML:-false}
+                - PHP_XMLRPC=${PHP_XMLRPC:-false}
+                - PHP_ZIP=${PHP_ZIP:-false}
+                - PHP_ZMQ=${PHP_ZMQ:-false}
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./conf:/var/www/conf
+            - ./www:/var/www/app
+            - ./data/log:/var/log/apache2
+            - ~/.cache/composer:/var/www/.composer
+            - ~/.npm:/var/www/.npm
+        ports:
+            - "5100:80"
+        networks:
+            - proxy
+    mariadb:
+        hostname: mariadb
+        image: mariadb:latest
+        restart: unless-stopped
+        expose:
+            - "3306"
+        volumes:
+            - ./data/mariadb:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            TZ: "Europe/Paris"
+        networks:
+            - db
+            - proxy
+    smtp:
+        hostname: smtp
+        image: mailhog/mailhog:latest
+        restart: always
+        command: ["-smtp-bind-addr", "0.0.0.0:25"]
+        user: root
+        expose:
+            - "25"
+            - "8025"
+        environment:
+            VIRTUAL_HOST: "mailhog"
+            VIRTUAL_PORT: 8025
+            SELF_SIGNED_HOST: "mailhog"
+        networks:
+            - proxy
+    phpmyadmin:
+        hostname: phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        volumes:
+            - ./conf/pma/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+            - ./conf/pma/ovh.cert:/etc/phpmyadmin/ovh.cert
+        restart: unless-stopped
+        environment:
+            VIRTUAL_HOST: "pma"
+            SELF_SIGNED_HOST: "pma"
+            UPLOAD_LIMIT: 128000000
+        networks:
+            - db
+            - proxy
+        depends_on:
+            - mariadb
+    proxy-companion:
+        restart: unless-stopped
+        image: sebastienheyd/self-signed-proxy-companion
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./certs:/etc/nginx/certs:rw
+        networks:
+            - proxy
+networks:
+    proxy:
+        external: true
+    db:
+        external: true

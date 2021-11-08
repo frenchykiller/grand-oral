@@ -75,6 +75,12 @@ services:
         networks:
             - db
             - proxy
+    smtp:
+        hostname: smtp
+        restart: always
+        image: mwader/postfix-relay:latest
+        expose:
+            - "25"
     phpmyadmin:
         hostname: phpmyadmin
         image: phpmyadmin/phpmyadmin
