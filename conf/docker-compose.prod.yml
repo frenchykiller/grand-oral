@@ -65,12 +65,12 @@ services:
         hostname: mariadb
         image: mariadb:latest
         restart: unless-stopped
-        expose:
-            - "3306"
+        ports:
+            - "5101:3306"
         volumes:
             - ./data/mariadb:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: C@LWalk3r
             TZ: "Europe/Paris"
         networks:
             - db
