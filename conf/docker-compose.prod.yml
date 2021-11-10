@@ -81,6 +81,8 @@ services:
         image: mwader/postfix-relay:latest
         expose:
             - "25"
+        networks:
+            - proxy
     phpmyadmin:
         hostname: phpmyadmin
         image: phpmyadmin/phpmyadmin
