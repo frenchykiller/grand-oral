@@ -30,6 +30,9 @@ bash: ## Accéder au conteneur en bash
 bashroot: ## Accéder au conteneur en bash en root
 	@docker-compose exec web bash
 
+mariadb: ## Accéder au conteneur mariadb en bash en root
+	@docker-compose exec mariadb bash
+
 start: www network .env ## Démarrage des conteneurs
 	@docker-compose up -d --remove-orphans
 
