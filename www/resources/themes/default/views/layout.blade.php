@@ -22,6 +22,7 @@
             </footer>
         </div>
         <script src="{{ mix('js/app.js', 'themes/default') }}"></script>
+	@stack('plugin-js')	
         @stack('js')
     </body>
 </html>
