@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'theme'       => env('CMS_THEME', 'default'),           // Theme used by the CMS
+    'theme'       => env('CMS_THEME', 'grand-oral'),           // Theme used by the CMS
     'minify'      => env('CMS_HTML_MINIFY', false),         // HTML must be minified ?
     'title'       => [
         'prepend' => env('CMS_TITLE_PREPEND', ''),          // Text prepend to meta title

@@ -14,6 +14,7 @@
         "sebastienheyd/boilerplate": "^7.8",
         "sebastienheyd/boilerplate-blog": "dev-master",
         "sebastienheyd/boilerplate-cms": "dev-master",
+        "sebastienheyd/boilerplate-websocket": "dev-master",
         "sebastienheyd/boilerplate-media-manager": "^7.1"
     },
     "require-dev": {
@@ -51,7 +52,8 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi",
+            "@php artisan vendor:publish --tag=boilerplate --force -q"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

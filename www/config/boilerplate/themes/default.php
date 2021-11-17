@@ -29,7 +29,7 @@ return [
             'logo' => [
                 'bg'     => 'blue',
                 'icon'   => '<i class="fa fa-cubes"></i>',
-                'text'   => '<strong>BO</strong>ilerplate',
+                'text'   => '<strong>BO</strong> Grand Oral',
                 'shadow' => 2,
             ],
         ],

@@ -4,3 +4,6 @@
 [submodule "www/packages/sebastienheyd/boilerplate-cms"]
 	path = www/packages/sebastienheyd/boilerplate-cms
 	url = git@github.com:frenchykiller/boilerplate-cms.git
+[submodule "www/packages/sebastienheyd/boilerplate-websocket"]
+	path = www/packages/sebastienheyd/boilerplate-websocket
+	url = https://gitlab.com/aca-packages/boilerplate-websocket.git

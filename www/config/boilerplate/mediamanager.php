@@ -6,7 +6,7 @@ return [
     'thumbs_dir'         => 'thumbs',
     'hide_thumbs_dir'    => true,
     'authorized'         => [
-        'size'  => '2048',
+        'size'  => '51200',
         'mimes' => [// @see https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types)
             'jpg',
             'jpeg',
