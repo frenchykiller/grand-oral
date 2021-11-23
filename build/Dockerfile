@@ -174,7 +174,7 @@ RUN rm -rf /var/lib/apt/lists/* \
 ADD conf/msmtprc /etc/msmtprc
 
 # Apache configuration
-RUN a2enmod rewrite headers expires remoteip
+RUN a2enmod rewrite headers expires remoteip proxy_http proxy_wstunnel
 RUN a2disconf other-vhosts-access-log
 ADD conf/apache2.conf /etc/apache2/conf-enabled/app.conf
 ADD conf/remoteip.conf /etc/apache2/conf-enabled/remoteip.conf

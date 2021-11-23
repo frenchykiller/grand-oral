@@ -80,7 +80,7 @@
 @endpush
 
 @push('js')
-    @websocket(['userunique']);
+    @websocket(['userunique'])
 @endpush
 
 @push('js')
