@@ -59,6 +59,7 @@ services:
             - ~/.npm:/var/www/.npm
         ports:
             - "5100:80"
+            - "5101:8080"
         networks:
             - proxy
     mariadb:
