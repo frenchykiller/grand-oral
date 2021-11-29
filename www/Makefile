@@ -56,3 +56,17 @@ down:
 up:
 	@php artisan up
 
+
+websocket: ## Lancement du serveur websocket
+	@if [ -f .env ]; then \
+		if ! (ps -aux | grep -v grep | grep --quiet 'boilerplate:websocket'); then \
+			echo "Lancement du serveur websocket"; \
+			nohup php artisan boilerplate:websocket > /dev/null 2>&1 & \
+		fi; \
+	fi;
+
+websocketstop: ## Arrêt du serveur websocket
+	@if (ps -aux | grep -v grep | grep --quiet 'boilerplate:websocket'); then \
+		echo "Arrêt du serveur websocket"; \
+		pkill -f "php artisan boilerplate:websocket"; \
+	fi;
