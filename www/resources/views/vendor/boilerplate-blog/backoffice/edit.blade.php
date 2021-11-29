@@ -19,7 +19,9 @@
 @include('boilerplate::load.datatables')
 
 @push('js')
-    @websocket(['userunique'])
+    @if(isset($post))
+        @websocket(['userunique' => ['url' => 'post']])
+    @endif
 @endpush
 
 @push('js')

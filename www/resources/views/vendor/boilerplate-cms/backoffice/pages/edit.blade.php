@@ -80,7 +80,9 @@
 @endpush
 
 @push('js')
-    @websocket(['userunique'])
+    @if(isset($page))
+        @websocket(['userunique' => ['url' => 'pages']])
+    @endif
 @endpush
 
 @push('js')
